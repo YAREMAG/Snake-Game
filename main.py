@@ -3,6 +3,7 @@ import time
 from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
+
 screen = Screen()
 screen.setup(width=800, height=800)
 screen.bgcolor("light green")
@@ -13,6 +14,7 @@ screen.tracer(0)
 snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
+# timer = Timer()
 
 screen.listen()
 screen.onkey(snake.up,"Up")
@@ -23,7 +25,7 @@ screen.onkey(snake.right, "Right")
 game_is_on = True
 
 while game_is_on:
-    
+
     screen.update()
     time.sleep(.1)
     snake.move()
@@ -36,14 +38,17 @@ while game_is_on:
 
 
     if snake.head.xcor() > 380 or snake.head.xcor() < -380 or snake.head.ycor() > 380 or snake.head.ycor() < -380:
-        game_is_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
 
     for segment in snake.turtles[1:]:
         if snake.head.distance(segment) < 10:
-            scoreboard.game_over()
-            time.sleep(1)
-            game_is_on = False
+            pass
+        elif snake.head.distance(segment)< 10:
+            scoreboard.reset()
+            snake.reset()
+
+
 
 
 
